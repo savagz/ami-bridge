@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory
+coverage
+
+# Dependency directory
+node_modules
+
+# Additional ignores for modern Node/TS toolingdist
+build
+coverage.lcov
+.vscode
+.idea
+.DS_Store
+.env
+.env.*

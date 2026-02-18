@@ -1,0 +1,8 @@
+export default class SilentLogger {
+  fatal() {}
+  error() {}
+  warn() {}
+  info() {}
+  debug() {}
+  trace() {}
+}
