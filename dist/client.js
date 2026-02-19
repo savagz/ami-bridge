@@ -1,11 +1,14 @@
-import * as net from 'node:net';
-import { EventEmitter } from 'node:events';
-import Logger from './loggers/logger.js';
-import { EOM, REGEXP_EOM } from './constants.js';
-import Actions from './action.js';
-import Response from './response.js';
-import AmiEvent from './event.js';
-const logger = new Logger();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createClient = createClient;
+const net = require("node:net");
+const node_events_1 = require("node:events");
+const logger_js_1 = require("./loggers/logger.js");
+const constants_js_1 = require("./constants.js");
+const action_js_1 = require("./action.js");
+const response_js_1 = require("./response.js");
+const event_js_1 = require("./event.js");
+const logger = new logger_js_1.default();
 const CONFIG_DEFAULTS = {
     logger,
     host: '127.0.0.1',
@@ -14,7 +17,7 @@ const CONFIG_DEFAULTS = {
     password: 'admin',
     encoding: 'ascii',
 };
-export default class Client extends EventEmitter {
+class Client extends node_events_1.EventEmitter {
     connected = false;
     reconnectable = false;
     config;
@@ -112,9 +115,9 @@ export default class Client extends EventEmitter {
             this.socket.on('data', (data) => {
                 this.splitMessages(String(data));
             });
-            this.send(new Actions.Login(this.config.login, this.config.password), (error, response) => {
+            this.send(new action_js_1.default.Login(this.config.login, this.config.password), (error, response) => {
                 if (error) {
-                    if (error instanceof Response)
+                    if (error instanceof response_js_1.default)
                         this.emit('incorrectLogin');
                     else
                         this.emit('error', error);
@@ -131,8 +134,8 @@ export default class Client extends EventEmitter {
     }
     splitMessages(data) {
         this.logger.trace('Data:', data);
-        const buffer = this.tailInput.concat(data.replace(REGEXP_EOM, EOM));
-        const messages = buffer.split(EOM);
+        const buffer = this.tailInput.concat(data.replace(constants_js_1.REGEXP_EOM, constants_js_1.EOM));
+        const messages = buffer.split(constants_js_1.EOM);
         this.tailInput = messages.pop() || '';
         for (let i = 0; i < messages.length; i++) {
             ((message) => {
@@ -143,20 +146,20 @@ export default class Client extends EventEmitter {
     parseMessage(raw) {
         this.logger.trace('Message:', raw);
         if (raw.match(/^Response: /)) {
-            const response = new Response(raw);
+            const response = new response_js_1.default(raw);
             if (response.actionid)
                 this.responses[response.actionid] = response;
             return this.emit('needParseResponse', response);
         }
         if (raw.match(/^Event: /))
-            return this.emit('needParseEvent', new AmiEvent(raw));
+            return this.emit('needParseEvent', new event_js_1.default(raw));
         return this._parseUnformatMessage(raw);
     }
     _parseUnformatMessage(raw) {
         const keys = Object.keys(this.unformatWait);
         if (keys.length === 0)
             return this.logger.warn('Unexpected: \n<< %s >>', raw);
-        Response.tryFormat({ raw }, (err, data) => {
+        response_js_1.default.tryFormat({ raw }, (err, data) => {
             if (err)
                 return this.logger.warn('Fail fromat:', err);
             if (!this.unformatWait[data.type])
@@ -240,7 +243,7 @@ export default class Client extends EventEmitter {
     }
     disconnect() {
         this.reconnectable = false;
-        this.send(new Actions.Logoff(), () => {
+        this.send(new action_js_1.default.Logoff(), () => {
             this.logger.info('Logged out');
         });
         this.logger.info('Closing connection');
@@ -309,7 +312,8 @@ export default class Client extends EventEmitter {
         return this.version;
     }
 }
-export function createClient(config) {
+exports.default = Client;
+function createClient(config) {
     return new Client(config);
 }
 //# sourceMappingURL=client.js.map

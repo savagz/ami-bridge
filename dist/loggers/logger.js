@@ -1,6 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const LEVELS = ['fatal', 'error', 'warn', 'info', 'debug', 'trace'];
 const priority = LEVELS.reduce((accumulator, level, index) => Object.assign(accumulator, { [level]: index }), {});
-export default class Logger {
+class Logger {
     minimalLogLevel;
     constructor(minimalLogLevel = 'warn') {
         this.minimalLogLevel = minimalLogLevel;
@@ -44,4 +46,5 @@ export default class Logger {
         console.log(...rest);
     }
 }
+exports.default = Logger;
 //# sourceMappingURL=logger.js.map

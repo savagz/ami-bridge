@@ -1,25 +1,30 @@
-import specs from './action-specifications.js';
-import createActionSubClass from './create-action-sub-class.js';
-import getId from './get-id.js';
-import Message from './message.js';
-export class ActionBase extends Message {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ActionBase = void 0;
+exports.createAction = createAction;
+const action_specifications_js_1 = require("./action-specifications.js");
+const create_action_sub_class_js_1 = require("./create-action-sub-class.js");
+const get_id_js_1 = require("./get-id.js");
+const message_js_1 = require("./message.js");
+class ActionBase extends message_js_1.default {
     static from(params = {}) {
         return Object.assign(new ActionBase(params.Action), params);
     }
     id;
     constructor(name) {
         super();
-        this.id = getId();
+        this.id = (0, get_id_js_1.default)();
         this.set('ActionID', this.id);
         this.set('Action', name);
     }
 }
+exports.ActionBase = ActionBase;
 const Actions = {};
-for (const spec of specs) {
-    Actions[spec.name] = createActionSubClass(spec, ActionBase);
+for (const spec of action_specifications_js_1.default) {
+    Actions[spec.name] = (0, create_action_sub_class_js_1.default)(spec, ActionBase);
 }
-export function createAction(spec) {
-    return createActionSubClass(spec, ActionBase);
+function createAction(spec) {
+    return (0, create_action_sub_class_js_1.default)(spec, ActionBase);
 }
-export default Actions;
+exports.default = Actions;
 //# sourceMappingURL=action.js.map

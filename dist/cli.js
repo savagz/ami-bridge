@@ -1,7 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseArgs = parseArgs;
+exports.runCli = runCli;
 /* eslint-disable no-console */
-import { Actions, Client } from './index.js';
-import * as fs from 'node:fs';
-export function parseArgs(argv, env) {
+const index_js_1 = require("./index.js");
+const fs = require("node:fs");
+function parseArgs(argv, env) {
     const config = {
         host: env.AMI_HOST,
         port: env.AMI_PORT ? Number(env.AMI_PORT) : undefined,
@@ -51,11 +55,11 @@ export function parseArgs(argv, env) {
     config.password = config.password ?? args[1] ?? 'password';
     return { config, file };
 }
-export function runCli() {
+function runCli() {
     const parsed = parseArgs(process.argv, process.env);
     const config = parsed.config;
     const file = parsed.file;
-    const amiClient = new Client(config);
+    const amiClient = new index_js_1.Client(config);
     let count = 0;
     const time = Date.now();
     const eventsArray = [];
@@ -82,47 +86,47 @@ export function runCli() {
     amiClient.on('responseEvent', () => { });
     amiClient.on('rawEvent', () => { });
     amiClient.on('connected', () => {
-        amiClient.send(new Actions.Ping(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.Ping(), (err, data) => {
             if (err)
                 return amiClient.logger.error('PING', err);
             return amiClient.logger.info('PING', data);
         });
-        amiClient.send(new Actions.CoreStatus(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.CoreStatus(), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.CoreSettings(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.CoreSettings(), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.Status(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.Status(), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.ListCommands(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.ListCommands(), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.QueueStatus(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.QueueStatus(), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.QueueSummary(), (err, data) => {
+        amiClient.send(new index_js_1.Actions.QueueSummary(), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.GetConfig('sip.conf'), (err, data) => {
+        amiClient.send(new index_js_1.Actions.GetConfig('sip.conf'), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
         });
-        amiClient.send(new Actions.GetConfigJson('sip.conf'), (err, data) => {
+        amiClient.send(new index_js_1.Actions.GetConfigJson('sip.conf'), (err, data) => {
             if (err)
                 return amiClient.logger.error(err);
             return amiClient.logger.info(data);
@@ -149,7 +153,7 @@ export function runCli() {
     }, 300000).unref();
     amiClient.connect();
 }
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
     runCli();
 }
 //# sourceMappingURL=cli.js.map

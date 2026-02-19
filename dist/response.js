@@ -1,5 +1,7 @@
-import Message from './message.js';
-import formatQueueMessage from './response-formats/queue-message.js';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const message_js_1 = require("./message.js");
+const queue_message_js_1 = require("./response-formats/queue-message.js");
 const QUEUE_REGEXP = /.* has .* call[s]? .* in .*/i;
 function isQueueMessage(message) {
     const rawStr = typeof message.raw === 'string' ? message.raw : '';
@@ -12,10 +14,10 @@ function isQueueMessage(message) {
     const firstLine = Array.isArray(incoming) ? incoming[0] : '';
     return QUEUE_REGEXP.test(firstLine) || /has .* in .*/i.test(firstLine);
 }
-export default class Response extends Message {
+class Response extends message_js_1.default {
     static tryFormat(message, callback) {
         if (isQueueMessage(message)) {
-            return formatQueueMessage(message, callback);
+            return (0, queue_message_js_1.default)(message, callback);
         }
         return callback(new Error('Undefined format'));
     }
@@ -26,4 +28,5 @@ export default class Response extends Message {
         this.events = [];
     }
 }
+exports.default = Response;
 //# sourceMappingURL=response.js.map

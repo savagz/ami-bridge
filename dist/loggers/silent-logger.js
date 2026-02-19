@@ -1,4 +1,6 @@
-export default class SilentLogger {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class SilentLogger {
     fatal() { }
     error() { }
     warn() { }
@@ -6,4 +8,5 @@ export default class SilentLogger {
     debug() { }
     trace() { }
 }
+exports.default = SilentLogger;
 //# sourceMappingURL=silent-logger.js.map

@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = createActionSubClass;
 function ensureIfNoDefaultsForOptional(defaults, optional) {
     optional.forEach((fieldName) => {
         if (Object.prototype.hasOwnProperty.call(defaults, fieldName)) {
@@ -25,7 +28,7 @@ function applyDefaults(self, defaults) {
 }
 const emptyObject = {};
 const emptyArray = [];
-export default function createActionSubClass({ name, params: paramNames = emptyArray, optional = emptyArray, defaults = emptyObject, }, ParentClass) {
+function createActionSubClass({ name, params: paramNames = emptyArray, optional = emptyArray, defaults = emptyObject, }, ParentClass) {
     ensureIfNoDefaultsForOptional(defaults, optional);
     ensureIfOptionalExistsInParams(paramNames, optional);
     const ResultClass = class extends ParentClass {

@@ -1,1 +1,1 @@
-{"version":3,"file":"get-id.js","sourceRoot":"","sources":["../src/get-id.ts"],"names":[],"mappings":"AAAA,IAAI,SAAS,GAAG,CAAC,CAAC;AAClB,MAAM,CAAC,OAAO,UAAU,KAAK;IAC3B,OAAO,SAAS,EAAE,CAAC;AACrB,CAAC"}
+{"version":3,"file":"get-id.js","sourceRoot":"","sources":["../src/get-id.ts"],"names":[],"mappings":";;AACA,wBAEC;AAHD,IAAI,SAAS,GAAG,CAAC,CAAC;AAClB,SAAwB,KAAK;IAC3B,OAAO,SAAS,EAAE,CAAC;AACrB,CAAC"}

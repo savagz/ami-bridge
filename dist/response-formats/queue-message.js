@@ -1,4 +1,7 @@
-export default function formatQueueMessage(message, callback) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = formatQueueMessage;
+function formatQueueMessage(message, callback) {
     const res = [];
     const strings = message.raw.split('\r\n');
     let queue = strings[0].match(/^[\w\d_\-.]* /);

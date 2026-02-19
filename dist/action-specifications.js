@@ -1,4 +1,6 @@
-export default [
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = [
     { name: 'Login', params: ['Username', 'Secret'] },
     { name: 'CoreShowChannels', params: [] },
     { name: 'Ping', params: [] },
@@ -13,7 +15,8 @@ export default [
     { name: 'SipShowPeer', params: [] },
     { name: 'SipShowRegistry', params: [] },
     { name: 'SipQualifyPeer', params: [] },
-    { name: 'SipPeers', params: [] },
+    { name: 'SIPPeers', params: [] },
+    { name: 'IAXPeers', params: [] },
     { name: 'AgentLogoff', params: [] },
     { name: 'Agents', params: [] },
     { name: 'AttendedTransfer', params: [] },

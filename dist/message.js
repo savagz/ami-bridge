@@ -1,6 +1,8 @@
-import { EOL } from './constants.js';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const constants_js_1 = require("./constants.js");
 const FIELDS_TO_SKIP_WHILE_FORMAT = ['variables', 'inputData'];
-export default class Message {
+class Message {
     static parse(rawData) {
         const message = new Message();
         message.parse(rawData);
@@ -12,20 +14,20 @@ export default class Message {
         this.variables = {};
     }
     format() {
-        return `${this.formatFields()}${this.formatVariables()}${EOL}`;
+        return `${this.formatFields()}${this.formatVariables()}${constants_js_1.EOL}`;
     }
     formatFields() {
         return Object.keys(this)
             .filter((key) => !FIELDS_TO_SKIP_WHILE_FORMAT.includes(key))
             .filter((key) => typeof this[key] !== 'function' &&
             typeof this[key] !== 'undefined')
-            .reduce((accumulator, key) => `${accumulator}${key}: ${this[key]}${EOL}`, '');
+            .reduce((accumulator, key) => `${accumulator}${key}: ${this[key]}${constants_js_1.EOL}`, '');
     }
     formatVariables() {
-        return Object.keys(this.variables).reduce((accumulator, key) => `${accumulator}Variable: ${key}=${this.variables[key]}${EOL}`, '');
+        return Object.keys(this.variables).reduce((accumulator, key) => `${accumulator}Variable: ${key}=${this.variables[key]}${constants_js_1.EOL}`, '');
     }
     parse(rawData) {
-        const data = rawData.split(EOL);
+        const data = rawData.split(constants_js_1.EOL);
         let lastVariable = '';
         for (let i = 0; i < data.length; i++) {
             const line = data[i] ?? '';
@@ -61,4 +63,5 @@ export default class Message {
         this.variables[name] = value;
     }
 }
+exports.default = Message;
 //# sourceMappingURL=message.js.map
