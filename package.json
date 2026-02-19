@@ -1,22 +1,40 @@
 {
   "name": "ami-bridge",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "Asterisk Manager Interface client.",
+  "keywords": [
+    "asterisk",
+    "manager",
+    "ami"
+  ],
+  "homepage": "https://github.com/savagz/ami-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/savagz/ami-bridge/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savagz/ami-bridge.git"
+  },
+  "license": "MIT",
+  "author": "Samuel Vargas (savagz)",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "ami-bridge": "dist/cli.js"
+  },
+  "directories": {
+    "test": "test"
+  },
   "files": [
     "dist"
   ],
-  "bin": {
-    "ami-bridge": "./dist/cli.js"
-  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
@@ -28,10 +46,8 @@
     "prepare": "npm run build",
     "coveralls": "echo \"Deprecated. Use coverage:lcov and Codecov in CI.\" && exit 1"
   },
-  "engines": {
-    "node": ">=18"
+  "dependencies": {
   },
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@vitest/coverage-v8": "^1.5.0",
@@ -43,5 +59,8 @@
     "prettier": "^3.0.0",
     "rimraf": "^5.0.0",
     "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
